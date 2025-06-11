@@ -1,34 +1,73 @@
-<h1>Éditer un potin</h1>
+<h1>✏️ Modifier le potin</h1>
 
-<form action="/gossips/<%= id %>/edit" method="post">
-  <label for="gossip_author">Auteur :</label><br>
-  <input type="text" id="gossip_author" name="gossip_author" value="<%= gossip.author %>" required><br><br>
+<form action="/gossips/<%= gossip.id %>/edit" method="post" class="edit-form">
+  <label for="gossip_author">Auteur :</label><br/>
+  <input type="text" id="gossip_author" name="gossip_author" value="<%= gossip.author %>" required><br/><br/>
 
-  <label for="gossip_content">Contenu :</label><br>
-  <textarea id="gossip_content" name="gossip_content" rows="5" cols="40" required><%= gossip.content %></textarea><br><br>
+  <label for="gossip_content">Contenu :</label><br/>
+  <textarea id="gossip_content" name="gossip_content" rows="5" required><%= gossip.content %></textarea><br/><br/>
 
-  <input type="submit" value="Mettre à jour" class="btn">
+  <input type="submit" value="✅ Mettre à jour" class="btn">
 </form>
 
-<a href="/gossips/<%= id %>" class="btn">Retour au potin</a>
+<a href="/gossips/<%= gossip.id %>" class="btn back-btn">⬅️ Retour au potin</a>
 
 <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 2em;
+    background-color: #f7f7f7;
+    color: #333;
+  }
+
+  h1 {
+    color: #2a7ae2;
+    margin-bottom: 1em;
+  }
+
+  .edit-form {
+    max-width: 600px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
   .btn {
     display: inline-block;
-    padding: 0.5em 1em;
-    border-radius: 5px;
+    padding: 0.6em 1.2em;
+    border-radius: 6px;
     background-color: #2a7ae2;
     color: white;
     text-decoration: none;
-    margin-right: 1em;
+    margin-top: 1em;
+    margin-right: 0.5em;
     border: none;
     cursor: pointer;
+    font-weight: bold;
   }
 
   .btn:hover {
     background-color: #1e5cb8;
   }
-</style>
 
+  .back-btn {
+    background-color: #555;
+  }
+
+  .back-btn:hover {
+    background-color: #333;
+  }
+</style>
 
 

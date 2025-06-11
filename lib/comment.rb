@@ -6,33 +6,43 @@ class Comment
   attr_reader :gossip_id, :content
 
   def initialize(gossip_id, content)
-    @gossip_id = gossip_id
-    @content = content
+    @gossip_id = gossip_id.to_i
+    @content = content.strip
   end
 
   def save
+    return if content.empty?
+
     CSV.open(FILE_PATH, "ab") do |csv|
       csv << [gossip_id, content]
     end
   end
 
   def self.all(gossip_id)
+    return [] unless File.exist?(FILE_PATH)
+
     comments = []
     CSV.foreach(FILE_PATH) do |row|
-      comments << Comment.new(row[0].to_i, row[1]) if row[0].to_i == gossip_id
+      if row[0].to_i == gossip_id.to_i
+        comments << Comment.new(row[0], row[1])
+      end
     end
     comments
   end
 
   def self.delete_by_gossip_id(gossip_id)
-    comments = CSV.read(FILE_PATH)
-    comments.reject! { |row| row[0].to_i == gossip_id }
+    return unless File.exist?(FILE_PATH)
+
+    updated_comments = CSV.read(FILE_PATH).reject do |row|
+      row[0].to_i == gossip_id.to_i
+    end
 
     CSV.open(FILE_PATH, "w") do |csv|
-      comments.each { |line| csv << line }
+      updated_comments.each { |line| csv << line }
     end
   end
 end
+
 
 
   

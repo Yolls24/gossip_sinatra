@@ -18,48 +18,52 @@ end
 
 # Action qui sauvegarde un nouveau potin en CSV
 post '/gossips/new' do
-  Gossip.new(params[:gossip_author], params[:gossip_content]).save
+  if params[:gossip_author].empty? || params[:gossip_content].empty?
+    status 400
+    return "Veuillez remplir tous les champs."
+  end
+
+  new_id = Gossip.next_id
+  gossip = Gossip.new(new_id, params[:gossip_author], params[:gossip_content])
+  gossip.save
   redirect '/'
 end
 
-# Page "show" : affiche un potin selon son ID + ses commentaires
+# Page "show" : affiche un potin et ses commentaires
 get '/gossips/:id' do
-  begin
-    id = params[:id].to_i
-    gossip = Gossip.find(id)
-    if gossip
-      comments = Comment.all(id)
-      erb :show, locals: { gossip: gossip, id: id, comments: comments }
-    else
-      status 404
-      "Potin non trouvé"
-    end
-  rescue => e
-    status 500
-    "Erreur serveur : #{e.message}"
+  id = params[:id].to_i
+  gossip = Gossip.find(id)
+
+  if gossip
+    comments = Comment.all(id)
+    erb :show, locals: { gossip: gossip, id: id, comments: comments }
+  else
+    status 404
+    erb :not_found
   end
 end
 
-# Page "edit" : formulaire d'édition d’un potin
+# Page "edit" : formulaire d’édition d’un potin
 get '/gossips/:id/edit' do
-  begin
-    id = params[:id].to_i
-    gossip = Gossip.find(id)
-    if gossip
-      erb :edit_gossip, locals: { gossip: gossip, id: id }
-    else
-      status 404
-      "Potin non trouvé pour édition"
-    end
-  rescue => e
-    status 500
-    "Erreur serveur : #{e.message}"
+  id = params[:id].to_i
+  gossip = Gossip.find(id)
+
+  if gossip
+    erb :edit_gossip, locals: { gossip: gossip, id: id }
+  else
+    status 404
+    erb :not_found
   end
 end
 
-# Action de mise à jour du potin (update)
+# Action de mise à jour du potin
 post '/gossips/:id/edit' do
   id = params[:id].to_i
+  if params[:gossip_author].empty? || params[:gossip_content].empty?
+    status 400
+    return "Champs requis manquants."
+  end
+
   Gossip.update(id, params[:gossip_author], params[:gossip_content])
   redirect "/gossips/#{id}"
 end
@@ -71,14 +75,22 @@ post '/gossips/:id/delete' do
   redirect '/'
 end
 
-# Ajout d'un commentaire à un potin
+# Ajout d’un commentaire à un potin
 post '/gossips/:id/comments' do
   id = params[:id].to_i
   content = params[:comment_content]
+
+  if content.strip.empty?
+    status 400
+    return "Le commentaire ne peut pas être vide."
+  end
+
   comment = Comment.new(id, content)
   comment.save
   redirect "/gossips/#{id}"
 end
+
+
 
 
 

@@ -21,13 +21,13 @@
   <% if gossips.empty? %>
     <p>Aucun potin pour l'instant. 😢</p>
   <% else %>
-    <% gossips.each_with_index do |gossip, index| %>
+    <% gossips.each do |gossip| %>
       <div class="gossip">
         <strong><%= gossip.author %></strong> a écrit :
         <p><%= gossip.content %></p>
         <div class="actions">
-          <a href="/gossips/<%= index %>" class="btn">Voir / Commenter</a>
-          <form action="/gossips/<%= index %>/delete" method="post" style="display:inline;">
+          <a href="/gossips/<%= gossip.id %>" class="btn">Voir / Commenter</a>
+          <form action="/gossips/<%= gossip.id %>/delete" method="post" style="display:inline;">
             <input type="submit" value="Supprimer" class="btn delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce potin ?');">
           </form>
         </div>
@@ -40,7 +40,6 @@
   </div>
 </body>
 </html>
-
 
 
 
