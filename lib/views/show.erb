@@ -1,0 +1,22 @@
+<h1>Potin de <%= gossip.author %></h1>
+<p><%= gossip.content %></p>
+
+<a href="/gossips/<%= id %>/edit">Éditer</a>
+
+<form action="/gossips/<%= id %>/delete" method="post" style="display:inline;">
+  <input type="submit" value="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce potin ?');">
+</form>
+
+<hr>
+
+<h2>Commentaires</h2>
+<ul>
+  <% comments.each do |comment| %>
+    <li><%= comment.content %></li>
+  <% end %>
+</ul>
+
+<form action="/gossips/<%= id %>/comments" method="post">
+  <textarea name="comment_content" rows="3" cols="40" placeholder="Écrire un commentaire..."></textarea><br/>
+  <input type="submit" value="Ajouter un commentaire" />
+</form>

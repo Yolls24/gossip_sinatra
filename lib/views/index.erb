@@ -1,0 +1,18 @@
+<h1>Liste des potins</h1>
+
+<a href="/gossips/new">Créer un nouveau potin</a>
+
+<ul>
+  <% @gossips.each_with_index do |gossip, index| %>
+    <li>
+      <a href="/gossips/<%= index %>"><strong><%= gossip.author %></strong></a> : 
+      <%= gossip.content[0..30] %><%= "..." if gossip.content.length > 30 %>
+    </li>
+  <% end %>
+</ul>
+
+
+
+
+
+

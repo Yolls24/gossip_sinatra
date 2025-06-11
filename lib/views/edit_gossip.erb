@@ -1,0 +1,16 @@
+<h1>Éditer un potin</h1>
+
+<form action="/gossips/<%= id %>/edit" method="post">
+  <label for="gossip_author">Auteur :</label><br>
+  <input type="text" id="gossip_author" name="gossip_author" value="<%= gossip.author %>" required><br><br>
+
+  <label for="gossip_content">Contenu :</label><br>
+  <textarea id="gossip_content" name="gossip_content" rows="5" cols="40" required><%= gossip.content %></textarea><br><br>
+
+  <input type="submit" value="Mettre à jour">
+</form>
+
+<a href="/gossips/<%= id %>">Retour au potin</a>
+
+
+
