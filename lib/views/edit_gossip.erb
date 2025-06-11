@@ -7,10 +7,28 @@
   <label for="gossip_content">Contenu :</label><br>
   <textarea id="gossip_content" name="gossip_content" rows="5" cols="40" required><%= gossip.content %></textarea><br><br>
 
-  <input type="submit" value="Mettre à jour">
+  <input type="submit" value="Mettre à jour" class="btn">
 </form>
 
-<a href="/gossips/<%= id %>">Retour au potin</a>
+<a href="/gossips/<%= id %>" class="btn">Retour au potin</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #2a7ae2;
+    color: white;
+    text-decoration: none;
+    margin-right: 1em;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #1e5cb8;
+  }
+</style>
 
 
 

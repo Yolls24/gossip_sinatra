@@ -1,15 +1,48 @@
-<h1>Liste des potins</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gossip Sinatra</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 2em; }
+    h1 { color: #333; }
+    .gossip { background: #fff; padding: 1em; margin-bottom: 1em; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .gossip a { text-decoration: none; color: white; }
+    .actions { margin-top: 1em; }
+    .btn { display: inline-block; padding: 0.5em 1em; border-radius: 5px; background-color: #2a7ae2; color: white; text-decoration: none; margin-right: 1em; }
+    .btn:hover { background-color: #1e5cb8; }
+    .delete-btn { background-color: #e22a2a; }
+    .delete-btn:hover { background-color: #b81e1e; }
+  </style>
+</head>
+<body>
+  <h1>📢 Tous les potins de THP </h1>
 
-<a href="/gossips/new">Créer un nouveau potin</a>
-
-<ul>
-  <% @gossips.each_with_index do |gossip, index| %>
-    <li>
-      <a href="/gossips/<%= index %>"><strong><%= gossip.author %></strong></a> : 
-      <%= gossip.content[0..30] %><%= "..." if gossip.content.length > 30 %>
-    </li>
+  <% if gossips.empty? %>
+    <p>Aucun potin pour l'instant. 😢</p>
+  <% else %>
+    <% gossips.each_with_index do |gossip, index| %>
+      <div class="gossip">
+        <strong><%= gossip.author %></strong> a écrit :
+        <p><%= gossip.content %></p>
+        <div class="actions">
+          <a href="/gossips/<%= index %>" class="btn">Voir / Commenter</a>
+          <form action="/gossips/<%= index %>/delete" method="post" style="display:inline;">
+            <input type="submit" value="Supprimer" class="btn delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce potin ?');">
+          </form>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+
+  <div class="actions">
+    <a href="/gossips/new" class="btn">➕ Nouveau potin</a>
+  </div>
+</body>
+</html>
+
+
+
 
 
 

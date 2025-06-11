@@ -1,10 +1,11 @@
 <h1>Potin de <%= gossip.author %></h1>
 <p><%= gossip.content %></p>
 
-<a href="/gossips/<%= id %>/edit">Éditer</a>
+<a href="/" class="btn">Retour à la page d'accueil</a>
+<a href="/gossips/<%= id %>/edit" class="btn">Éditer</a>
 
 <form action="/gossips/<%= id %>/delete" method="post" style="display:inline;">
-  <input type="submit" value="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce potin ?');">
+  <input type="submit" value="Supprimer" class="btn delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce potin ?');">
 </form>
 
 <hr>
@@ -18,5 +19,32 @@
 
 <form action="/gossips/<%= id %>/comments" method="post">
   <textarea name="comment_content" rows="3" cols="40" placeholder="Écrire un commentaire..."></textarea><br/>
-  <input type="submit" value="Ajouter un commentaire" />
+  <input type="submit" value="Ajouter un commentaire" class="btn">
 </form>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #2a7ae2;
+    color: white;
+    text-decoration: none;
+    margin-right: 0.5em;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #1e5cb8;
+  }
+
+  .delete-btn {
+    background-color: #e22a2a;
+  }
+
+  .delete-btn:hover {
+    background-color: #b81e1e;
+  }
+</style>
+

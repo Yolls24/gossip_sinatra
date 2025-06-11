@@ -7,9 +7,27 @@
   <label for="gossip_content">Contenu :</label><br>
   <textarea id="gossip_content" name="gossip_content" rows="5" cols="40" required></textarea><br><br>
 
-  <input type="submit" value="Créer">
+  <input type="submit" value="Créer" class="btn">
 </form>
 
-<a href="/">Retour à l'accueil</a>
+<a href="/" class="btn">Retour à l'accueil</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #2a7ae2;
+    color: white;
+    text-decoration: none;
+    margin-right: 1em;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #1e5cb8;
+  }
+</style>
 
 
